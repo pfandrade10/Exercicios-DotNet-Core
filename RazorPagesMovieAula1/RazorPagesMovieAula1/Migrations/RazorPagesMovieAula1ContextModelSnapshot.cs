@@ -46,6 +46,9 @@ namespace RazorPagesMovieAula1.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DiretorID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -64,7 +67,25 @@ namespace RazorPagesMovieAula1.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("DiretorID");
+
                     b.ToTable("Movie");
+                });
+
+            modelBuilder.Entity("RazorPagesMovieAula1.Models.Movie", b =>
+                {
+                    b.HasOne("RazorPagesMovieAula1.Models.Diretor", "Diretor")
+                        .WithMany("Movies")
+                        .HasForeignKey("DiretorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diretor");
+                });
+
+            modelBuilder.Entity("RazorPagesMovieAula1.Models.Diretor", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,7 +19,7 @@ namespace RazorPagesMovieAula1.Models
         [DataType(DataType.Date)]
         public DateTime BirthDay { get; set; }
 
-        //public ICollection<Movie> Movies { get; set; }
+        public ICollection<Movie> Movies { get; set; }
 
     }
 }

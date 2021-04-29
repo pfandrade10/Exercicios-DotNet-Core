@@ -21,6 +21,7 @@ namespace RazorPagesMovieAula1.Pages.Movies
 
         public IActionResult OnGet()
         {
+        ViewData["DiretorID"] = new SelectList(_context.Diretor, "ID", "Name");
             return Page();
         }
 

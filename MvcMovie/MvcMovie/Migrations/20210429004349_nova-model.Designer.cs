@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RazorPagesMovieAula1.Data;
+using MvcMovie.Data;
 
-namespace RazorPagesMovieAula1.Migrations
+namespace MvcMovie.Migrations
 {
-    [DbContext(typeof(RazorPagesMovieAula1Context))]
-    [Migration("20210415014545_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(MvcMovieContext))]
+    [Migration("20210429004349_nova-model")]
+    partial class novamodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace RazorPagesMovieAula1.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RazorPagesMovieAula1.Models.Diretor", b =>
+            modelBuilder.Entity("MvcMovie.Models.Diretor", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -41,12 +41,15 @@ namespace RazorPagesMovieAula1.Migrations
                     b.ToTable("Diretor");
                 });
 
-            modelBuilder.Entity("RazorPagesMovieAula1.Models.Movie", b =>
+            modelBuilder.Entity("MvcMovie.Models.Movie", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DiretorID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Genre")
                         .IsRequired()
@@ -55,6 +58,9 @@ namespace RazorPagesMovieAula1.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
@@ -66,7 +72,25 @@ namespace RazorPagesMovieAula1.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("DiretorID");
+
                     b.ToTable("Movie");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Movie", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Diretor", "Diretor")
+                        .WithMany("Movies")
+                        .HasForeignKey("DiretorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diretor");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Diretor", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

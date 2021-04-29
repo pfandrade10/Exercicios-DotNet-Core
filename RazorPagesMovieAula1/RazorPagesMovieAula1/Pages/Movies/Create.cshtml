@@ -34,6 +34,10 @@
                 <span asp-validation-for="Movie.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Movie.DiretorID" class="control-label"></label>
+                <select asp-for="Movie.DiretorID" class ="form-control" asp-items="ViewBag.DiretorID"></select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

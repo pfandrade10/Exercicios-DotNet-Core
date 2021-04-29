@@ -30,8 +30,8 @@ namespace RazorPagesMovieAula1.Models
         [Required(ErrorMessage = "Obrigatório informar o preço!")]
         public decimal Price { get; set; }
 
-        //public int DiretorID { get; set; }
+        public int DiretorID { get; set; }
 
-        //public Diretor Diretor { get; set; }
+        public Diretor Diretor { get; set; }
     }
 }
