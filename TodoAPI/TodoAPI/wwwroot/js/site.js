@@ -18,6 +18,8 @@ function addItem() {
         description: addDescTextbox.value.trim()
     };
 
+    console.log(item);
+
     fetch(uri, {
         method: 'POST',
         headers: {
@@ -30,6 +32,7 @@ function addItem() {
         .then(() => {
             getItems();
             addNameTextbox.value = '';
+            addDescTextbox.value = '';
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -47,7 +50,7 @@ function displayEditForm(id) {
 
     document.getElementById('edit-name').value = item.name;
     document.getElementById('edit-id').value = item.id;
-    document.getElementById('edit-desc').value = item.Description;
+    document.getElementById('edit-desc').value = item.description;
     document.getElementById('edit-isComplete').checked = item.isComplete;
     document.getElementById('editForm').style.display = 'block';
 }
@@ -119,11 +122,11 @@ function _displayItems(data) {
         td2.appendChild(textNode);
 
         let td3 = tr.insertCell(2);
-        let descNode = document.createTextNode(item.Description);
+        let descNode = document.createTextNode(item.description);
         td3.appendChild(descNode);
 
         let td4 = tr.insertCell(3);
-        td3.appendChild(editButton);
+        td4.appendChild(editButton);
 
         let td5 = tr.insertCell(4);
         td5.appendChild(deleteButton);
